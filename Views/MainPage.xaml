@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CurrencyConverterApp.MainPage">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25">
+
+            <Button
+                Text="X"
+                FontSize="Large"
+                WidthRequest="40"
+                HeightRequest="40"
+                HorizontalOptions="End"
+                VerticalOptions="Start"
+                Margin="0,30,10,0"
+                Clicked="OnCloseButtonClicked"
+                BackgroundColor="Black"/>
+
+            <Image
+                Source="coin.png"
+                HeightRequest="185"
+                Aspect="AspectFit"
+                SemanticProperties.Description="dot net bot in a hovercraft number nine"
+                Margin="0,50,0,0" />
+
+            <Picker Title="Selecione a moeda de origem:"
+                    ItemsSource="{Binding Currency}"
+                    SelectedItem="{Binding MoedaOrigem, Mode=TwoWay}"/>
+
+            <Button ImageSource="swap.png" Command="{Binding SwapMoedasCommand}" 
+                      HorizontalOptions="Center"
+                      WidthRequest="90"
+                      HeightRequest="90"
+                      Background="Transparent"/>
+
+            <Picker Title="Selecione a moeda de destino:"
+                    ItemsSource="{Binding Currency}"
+                    SelectedItem="{Binding MoedaDestino, Mode=TwoWay}"/>
+
+            <Label Text="Digite o valor:"></Label>
+            <Entry Text="{Binding ValorEntrada, Mode=TwoWay}" Keyboard="Numeric"/>
+
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="Black"/>
+
+            <Label Text="{Binding Resultado}" FontSize="18" TextColor="Black"/>
+
+            <Button Text="Converter" Command="{Binding ConverterCommand}" BackgroundColor="Black"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
