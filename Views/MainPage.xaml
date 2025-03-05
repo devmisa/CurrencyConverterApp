@@ -8,7 +8,14 @@
             Padding="30,0"
             Spacing="25">
 
-            <Button
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Button
                 Text="X"
                 FontSize="Large"
                 WidthRequest="40"
@@ -17,7 +24,21 @@
                 VerticalOptions="Start"
                 Margin="0,30,10,0"
                 Clicked="OnCloseButtonClicked"
-                BackgroundColor="Black"/>
+                BackgroundColor="CornflowerBlue"
+                Grid.Column="2"/>
+
+                <Button
+                ImageSource="darkmode.png"
+                BackgroundColor="Transparent"
+                WidthRequest="70"
+                HeightRequest="50"
+                Command="{Binding ToggleThemeCommand}"
+                HorizontalOptions="Start"
+                VerticalOptions="Start"
+                Margin="10,30,0,0" 
+                Padding="5"
+                Grid.Column="0"/>
+            </Grid>
 
             <Image
                 Source="coin.png"
@@ -45,7 +66,7 @@
 
             <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="Black"/>
 
-            <Label Text="{Binding Resultado}" FontSize="18" TextColor="Black"/>
+            <Label Text="{Binding Resultado}" FontSize="18" TextColor="Beige"/>
 
             <Button Text="Converter" Command="{Binding ConverterCommand}" BackgroundColor="Black"/>
 

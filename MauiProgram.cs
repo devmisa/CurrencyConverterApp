@@ -62,6 +62,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<ICurrencyService, CurrencyService>();
         builder.Services.AddSingleton<MainViewModel>();
         builder.Services.AddSingleton<MainPage>();
+        builder.Services.AddSingleton<ThemeService>();
     }
 
     private static void ConfigureLogging(MauiAppBuilder builder)

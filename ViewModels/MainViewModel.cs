@@ -1,4 +1,6 @@
-﻿using CurrencyConverterApp.Services.Interface;
+﻿using CurrencyConverterApp.Enums;
+using CurrencyConverterApp.Services;
+using CurrencyConverterApp.Services.Interface;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -9,6 +11,7 @@ namespace CurrencyConverterApp.ViewModels
     public class MainViewModel : INotifyPropertyChanged
     {
         private readonly ICurrencyService _currencyService;
+        private readonly ThemeService _themeService;
         private string _valorEntrada = string.Empty;
         private string _moedaOrigem = string.Empty;
         private string _moedaDestino = string.Empty ;
@@ -50,17 +53,20 @@ namespace CurrencyConverterApp.ViewModels
         }
 
         public ICommand ConverterCommand { get; }
-
         public ICommand SwapMoedasCommand { get; }
+        public ICommand ToggleThemeCommand { get; }
 
 
-        public MainViewModel(ICurrencyService currencyService)
+
+        public MainViewModel(ICurrencyService currencyService, ThemeService themeService)
         {
             _currencyService = currencyService;
             MoedaOrigem = Currency.FirstOrDefault() ?? string.Empty;
             MoedaDestino = Currency.Skip(1).FirstOrDefault() ?? string.Empty;
             ConverterCommand = new Command(async () => await CurrencyConverterAsync(), () => !IsBusy);
             SwapMoedasCommand = new Command(SwapCurrency);
+            _themeService = themeService;
+            ToggleThemeCommand = new Command(ToggleTheme);
         }
 
         private async Task CurrencyConverterAsync()
@@ -121,6 +127,12 @@ namespace CurrencyConverterApp.ViewModels
             {
                 (MoedaOrigem, MoedaDestino) = (MoedaDestino, MoedaOrigem);
             }
+        }
+
+        private void ToggleTheme()
+        {
+            var newTheme = _themeService.GetTheme() == ETheme.Light ? ETheme.Dark : ETheme.Light;
+            _themeService.SetTheme(newTheme);
         }
     }
 }
